@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { initialData } from './mock/initialData';
+import { Column } from './components/Column';
+import { DragDropContext } from 'react-beautiful-dnd';
 
-function App() {
+interface IData {
+  tasks: any,
+  columns: any,
+  columnOrder: any[]
+}
+
+const App = () => {
+  const [data, setData] = useState<IData>(initialData)
+
+  const onDragEnd = () => {
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <DragDropContext
+      onDragEnd={onDragEnd}
+    >
+      {
+        data.columnOrder.map((columnId: any) => {
+          const column = data.columns[columnId]
+          const tasks = column.taskIds.map((taskId: any) => data.tasks[taskId])
+
+          return <Column key={column.id} column={column} tasks={tasks} />
+        })
+      }
+    </DragDropContext>
+  )
 }
 
 export default App;
