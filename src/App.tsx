@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { initialData } from './mock/initialData';
 import { Column } from './components/Column';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 interface IData {
   tasks: any,
@@ -12,8 +12,29 @@ interface IData {
 const App = () => {
   const [data, setData] = useState<IData>(initialData)
 
-  const onDragEnd = () => {
+  const onDragEnd = (result: DropResult) => {
+    const { destination, source, draggableId } = result;
 
+    if(!destination) return;
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+     ) {
+      return;
+     }
+
+     const column = data.columns[source.droppableId];
+
+     const newTaskIds = Array.from(column.taskIds);
+     newTaskIds.splice(source.index, 1);
+     newTaskIds.splice(destination.index, 0, draggableId);
+
+     const newColumn = {...column, taskIds: newTaskIds}
+
+     const newState = {...data, columns: {...data.columns, [newColumn.id]: newColumn}}
+
+     setData(newState);
   }
 
   return (
