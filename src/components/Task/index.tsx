@@ -15,11 +15,12 @@ export const Task = (props: Props) => {
     
     return (
         <Draggable draggableId={task.id} index={index}>
-            {(provided) => (
+            {(provided, snapshot) => (
                 <Container
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
+                    isDragging={snapshot.isDragging}
                 >
                     {task.content}
                 </Container>

@@ -21,10 +21,11 @@ export const Column = (props: Props) => {
         <Container>
             <Title>{column.title}</Title>
             <Droppable droppableId={column.id}>
-                {(provided) => (
+                {(provided, snapshot) => (
                     <TaskList 
                         ref={provided.innerRef}
                         {...provided.droppableProps}
+                        isDraggingOver={snapshot.isDraggingOver}
                     >
                         {tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
                         {provided.placeholder}
