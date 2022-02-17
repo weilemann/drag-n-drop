@@ -11,4 +11,14 @@ export const Container = styled.div<ContainerProps>`
     margin-bottom: 8px;
     background-color: ${props => props.isDragging ? '#c7cff2' : '#fff'};
     transition: background-color 0.4s ease;
+
+    display: flex;
+`;
+
+export const Handle = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: #FF9000;
+    border-radius: 5px;
+    margin-right: 8px;
 `;

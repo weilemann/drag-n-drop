@@ -1,4 +1,3 @@
-import { DroppableProvided } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 type ContainerProps = {
