@@ -9,6 +9,7 @@ export const Container = styled.div`
     margin: 8px;
     border: 1px solid #999;
     border-radius: 5px;
+    background-color: #fff;
 `;
 
 export const Title = styled.h3`
